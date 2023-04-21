@@ -1,0 +1,35 @@
+.paramsBlock{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+    font-weight: 300;
+    font-size: 18px;
+}
+
+.param{
+    white-space: nowrap;
+    padding: 2px 0;
+    display: flex;
+}
+
+.paramLabel{
+    max-width: 80%;
+    overflow: hidden;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.paramLabel:after{
+    width: 0;
+    content: "....................................................................................................................................................................................................";
+}
+
+.paramValue{
+    padding-left: 1px;
+}
+
+.headerParamsBlock{
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 0px;
+}

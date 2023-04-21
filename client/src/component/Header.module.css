@@ -1,0 +1,88 @@
+
+.header{
+    min-height: 80px;
+    background-color: rgb(0, 132, 255);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 5%;
+    position: fixed;
+    width: 90%;
+    z-index: 10;
+    top: 0;
+}
+
+.button{
+    border: 1px solid black;
+    border-radius: 3px;
+    vertical-align: middle;
+    height: 50px;
+    width: 100px;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.startPageLink{
+    /* margin-right: 80%; */
+    font-weight: 500;
+    color: white;
+    font-size: 24px;
+    text-decoration: none;
+}
+
+.startPageLinkBlock{
+    position: absolute;
+    left: 200px;
+}
+
+.adminLink{
+    color: white;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.adminLink:hover{
+    text-decoration: underline;
+}
+
+.startPageLink:hover{
+    text-decoration: underline;
+}
+
+.buttonGrade{
+    margin-right: 50px;
+    width: 200px;
+}
+
+.back{
+    font-weight: 400;
+    color: white;
+    font-size: 18px;
+    position: absolute;
+    left: 20px;
+    cursor: pointer;
+    transition: transform .02s;
+}
+
+.back:hover{
+    transform: scale(1.01);
+}
+
+.menu{
+    position: absolute;
+    z-index: 12;
+    top: 15px; 
+    display: flex;
+    margin-right: 120px;
+}
+
+.outButton{
+    margin-left: 10px;
+    border: 1px solid black;
+    border-radius: 3px;
+    vertical-align: middle;
+    height: 50px;
+    width: 100px;
+    font-weight: 500;
+    font-size: 16px;
+}

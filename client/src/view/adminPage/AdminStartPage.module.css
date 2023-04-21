@@ -1,0 +1,13 @@
+
+.adminStartPage {
+    
+}
+
+.createForm{
+    display: flex;
+    justify-content: center;
+}
+
+.createFlat{
+    width: 1200px;
+}

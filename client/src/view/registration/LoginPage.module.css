@@ -1,0 +1,38 @@
+
+.loginPage{
+    background-color: rgb(0, 132, 255);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+}
+
+.content{
+    background-color: white;
+    margin-top: 100px;
+    width: 50%;
+    max-height: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.navButtonBlock{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30%;
+    height: 100%;
+    align-items: flex-end;
+    padding-bottom: 10%;
+}
+
+.title{
+    font-size: 24px;
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+
+.form{
+    padding: 0 20%;
+}
