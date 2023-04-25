@@ -14,4 +14,6 @@ public class SaleFlatEntity extends FlatEntity{
 
         @ManyToMany
         private List<FlatImageEntity> flatImageEntities;
+
+
 }

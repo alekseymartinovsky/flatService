@@ -1,16 +1,17 @@
+import { AmenitiesFlat } from "./Amentities";
 import { FlatInfo } from "./FlatInfo";
 
 export class RentFlat {
     private _id: number;
     private _flatInfo: FlatInfo;
     private _images: string[];
-    private _longTermRental: boolean;
+    private _amenities: AmenitiesFlat;
 
-    constructor(id: number, flatInfo: FlatInfo, images: string[], longTermRental: boolean) {
+    constructor(id: number, flatInfo: FlatInfo, images: string[], amentities: AmenitiesFlat) {
         this._id = id;
         this._flatInfo = flatInfo;
         this._images = images;
-        this._longTermRental = longTermRental;
+        this._amenities = amentities;
     }
 
     // Геттеры и сеттеры
@@ -38,12 +39,11 @@ export class RentFlat {
         this._images = images;
     }
 
-    get longTermRental(): boolean {
-        return this._longTermRental;
+    public get amenities(): AmenitiesFlat {
+        return this._amenities;
     }
-
-    set longTermRental(longTermRental: boolean) {
-        this._longTermRental = longTermRental;
+    public set amenities(value: AmenitiesFlat) {
+        this._amenities = value;
     }
 
     // Метод преобразования в JSON
@@ -52,12 +52,21 @@ export class RentFlat {
             id: this._id,
             flatInfo: this._flatInfo.toJson(),
             images: this._images,
-            longTermRental: this._longTermRental,
+            amenities: this._amenities.toJson(),
         };
     }
 
     // Метод создания из JSON
     static fromJson(json: any): RentFlat {
-        return new RentFlat(json.id, FlatInfo.fromJson(json.flatInfo), json.images, json.longTermRental);
+        return new RentFlat(
+            json?.id,
+            FlatInfo.fromJson(json?.flatInfo),
+            json.images,
+            AmenitiesFlat.fromJson(json?.amenities)
+        );
+    }
+
+    static fromValues(values: any): RentFlat {
+        return new RentFlat(0, FlatInfo.fromFormValues(values), [], AmenitiesFlat.fromJson(values));
     }
 }

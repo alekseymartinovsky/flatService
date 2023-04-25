@@ -7,6 +7,7 @@ import com.example.server.service.AuthService;
 import com.example.server.service.ImageService;
 import com.example.server.service.RentFlatService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -26,11 +27,11 @@ public class RentFlatController {
     ImageService imageService;
 
     @PostMapping("/add")
-    public ResponseEntity add(@RequestBody FlatInfoEntity flatInfo, @RequestHeader String token){
+    public ResponseEntity add(@RequestBody RentFlat rentFlat, @RequestHeader String token){
         try {
             authService.managerAuth(token);
-            RentFlat rentFlat = rentFlatService.addRentFlat(flatInfo, token);
-            return ResponseEntity.ok().body(rentFlat);
+            RentFlat saveFlat = rentFlatService.addRentFlat(rentFlat, token);
+            return ResponseEntity.ok().body(saveFlat);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -69,13 +70,25 @@ public class RentFlatController {
         }
     }
 
-    @PostMapping("/update")
-    public ResponseEntity update(@RequestBody FlatInfoEntity flatInfo, @RequestHeader String token){
+    @PutMapping("/update")
+    public ResponseEntity update(@RequestBody RentFlat rentFlat, @RequestHeader String token){
         try {
             authService.managerAuth(token);
-            return ResponseEntity.ok().body(rentFlatService.update(flatInfo, token));
+            return ResponseEntity.ok().body(rentFlatService.update(rentFlat, token));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity delete(@RequestParam Long id, @RequestHeader String token) {
+        try {
+            authService.managerAuth(token);
+            rentFlatService.delete(id);
+            return ResponseEntity.ok().body("Объявление успешно удалено");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 }

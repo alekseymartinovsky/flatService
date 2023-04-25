@@ -15,11 +15,13 @@ public class RentFlat {
     private FlatInfo flatInfo;
     private List<String> images;
     private Boolean longTermRental;
+    private Amenities amenities;
 
     public static RentFlat toModel(RentFlatEntity rentFlatEntity){
         RentFlat rentFlat = new RentFlat();
         rentFlat.setId(rentFlatEntity.getId());
         rentFlat.setFlatInfo(FlatInfo.toModel(rentFlatEntity.getFlatInfoEntity()));
+        rentFlat.setAmenities(Amenities.toModel(rentFlatEntity.getAmenities()));
         List<String> imagesPath = new ArrayList<>();
         for(FlatImageEntity image : rentFlatEntity.getFlatImageEntities()) {
             imagesPath.add(image.getName());

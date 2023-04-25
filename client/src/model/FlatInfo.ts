@@ -155,7 +155,7 @@ export class FlatInfo {
 
     static fromJson(obj: any): FlatInfo {
         return new FlatInfo(
-            obj.id,
+            obj?.id,
             obj.city,
             obj.street,
             obj.house,
@@ -171,22 +171,6 @@ export class FlatInfo {
     }
 
     static fromFormValues(formValues: any): FlatInfo {
-        // const flatInfo: Partial<FlatInfo> = {
-        //     id: 0,
-        //     city: formValues.city,
-        //     street: formValues.street,
-        //     house: formValues.house,
-        //     flat: formValues.flat,
-        //     price: formValues.price,
-        //     square: formValues.square,
-        //     balcony: 0,
-        //     //formValues.balcony.checked, // получаем значение чекбокса
-        //     repair: formValues.repair,
-        //     rooms: formValues.rooms,
-        //     floor: formValues.floor,
-        //     description: formValues.description,
-        // };
-
         return FlatInfo.fromJson(formValues);
     }
 

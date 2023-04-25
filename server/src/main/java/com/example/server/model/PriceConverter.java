@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class PriceConverter {
-    private Double bun;
+    private Double byn;
     private Double eur;
     private Double usd;
 }

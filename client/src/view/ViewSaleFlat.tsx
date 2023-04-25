@@ -7,12 +7,14 @@ import style from "./ViewPage.module.css";
 import { useEffect, useState } from "react";
 import { SaleFlat } from "../model/SaleFlat";
 import CreditForm from "./CreditForm";
+import { ConvertingPrice } from "../model/ConvertingPrice";
 
 const ViewSaleFlat: React.FC = () => {
     const location = useLocation();
 
     const saleFlats = SaleFlat.fromJson(location.state);
     const [showCreditForm, setShowCreditForm] = useState(false);
+    const [prices, setPrices] = useState<ConvertingPrice>();
 
     const openCreditForm = () => {
         setShowCreditForm(!showCreditForm);
@@ -20,7 +22,7 @@ const ViewSaleFlat: React.FC = () => {
 
     useEffect(() => {
         request.post("/currency/getPrice", { price: saleFlats.flatInfo.price }).then((res) => {
-            console.log(res);
+            setPrices(ConvertingPrice.fromJson(res));
         });
     }, []);
 
@@ -38,7 +40,11 @@ const ViewSaleFlat: React.FC = () => {
                     })}
                 </Carousel>
                 <div className={style.info}>
-                    <h3>Цена: {saleFlats.flatInfo.price} руб.</h3>
+                    <h3>Цена: {prices?.byn} BYN</h3>
+                    <div>
+                        <div>{prices?.usd} USD</div>
+                        <div>{prices?.eur} EUR</div>
+                    </div>
                     <h5>{saleFlats.flatInfo.getAddress()}</h5>
                     <Button onClick={openCreditForm}>Открыть форму расчета кредита</Button>
                     {showCreditForm ? <CreditForm /> : null}
