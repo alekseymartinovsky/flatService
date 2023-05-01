@@ -1,4 +1,4 @@
-import { Form, Input } from "antd";
+import { Form, Input, Switch } from "antd";
 import Button from "antd/es/button";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -27,14 +27,20 @@ const Login: React.FC = () => {
             value: "",
             rules: [{ required: true, message: "Введите пароль" }],
         },
+        {
+            name: "manager",
+            label: "Менеджер",
+            element: <Switch />,
+            value: false,
+        },
     ];
 
     const onFinish = (values: any) => {
-        request.post("/client/login", values).then((data: any) => {
-            console.log(data);
+        const path = values.manager ? "/manager/login" : "/client/login";
+        request.post(path, values).then((data: any) => {
             if (data) {
-                tokenService.saveToken(data.token);
-                localStorage.setItem("role", "CLIENT");
+                tokenService.saveToken(data);
+                localStorage.setItem("role", values.manager ? "MANAGER" : "CLIENT");
                 navigate(ROUTE_PATH.START);
             } else {
                 setShowError(true);

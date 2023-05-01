@@ -9,6 +9,7 @@ import EditFlat from "../../view/adminPage/EditFlat";
 import ViewRentFlat from "../../view/ViewRentFlat";
 import CreateSaleFlat from "../../view/adminPage/CreateSaleFlat";
 import ViewSaleFlat from "../../view/ViewSaleFlat";
+import CreateRentFlat from "../../view/adminPage/CreateRentFlat";
 
 export enum ROUTE_PATH {
     LOGIN = "/login",
@@ -23,7 +24,7 @@ export enum ROUTE_PATH {
     ADMIN_PAGE = "/adminPage",
     EDIT_SETTINGS = "/editSettings",
     UPDATE_PERSONAL_FLAT = "/updatePersonalFlat",
-    EDIT_FLAT_INFO = "/editFlatInfo",
+    EDIT_RENT_FLAT = "/editFlatInfo",
     VIEW_RENT_FLAT = "/viewRentFlat",
     EDIT_SALE_FLAT = "/editSaleFlat",
     VIEW_SALE_FLAT = "/viewSaleFlat",
@@ -41,7 +42,7 @@ const AppRouter: FC = () => {
             <Route path={ROUTE_PATH.REGISTRATION} element={<Sign />} />
             <Route path={ROUTE_PATH.START} element={<StartPage />} />
             <Route path={ROUTE_PATH.ADD_FLAT} element={<AddFlatPage />} />
-            <Route path={ROUTE_PATH.EDIT_FLAT_INFO} element={<EditFlat />} />
+            <Route path={ROUTE_PATH.EDIT_RENT_FLAT} element={<CreateRentFlat />} />
             <Route path={ROUTE_PATH.VIEW_RENT_FLAT} element={<ViewRentFlat />} />
             <Route path={ROUTE_PATH.EDIT_SALE_FLAT} element={<CreateSaleFlat />} />
             <Route path={ROUTE_PATH.VIEW_SALE_FLAT} element={<ViewSaleFlat />} />

@@ -7,4 +7,6 @@ public interface ClientRepository extends CrudRepository<ClientEntity, Long>{
     ClientEntity findOneByLogin(String login);
 
     ClientEntity findOneByToken(String token);
+
+    ClientEntity findFirstById(Long id);
 }

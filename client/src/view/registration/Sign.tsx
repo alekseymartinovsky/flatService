@@ -1,4 +1,4 @@
-import { Form, Input } from "antd";
+import { Form, Input, Switch } from "antd";
 import Button from "antd/es/button";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
@@ -63,18 +63,22 @@ const Sign: React.FC = () => {
             value: "",
             rules: [{ required: true, message: "Введите телефон" }],
         },
+        {
+            name: "manager",
+            label: "Менеджер",
+            element: <Switch />,
+            value: false,
+        },
     ];
 
     const onFinish = (values: any) => {
+        console.log(values.manager);
         if (values?.password === values?.confirmPassword) {
-            request.post("/client/registration", values).then((res) => {
-                if (res.status) {
-                    tokenService.saveToken(res.body);
-                    localStorage.setItem("role", "CLIENT");
-                    navigate(ROUTE_PATH.START);
-                } else {
-                    setShowError(true);
-                }
+            const path = values.manager ? "/manager/registration" : "/client/registration";
+            request.post(path, values).then((res) => {
+                tokenService.saveToken(res);
+                localStorage.setItem("role", values.manager ? "MANAGER" : "CLIENT");
+                navigate(ROUTE_PATH.START);
             });
         } else {
             setPasswordError(true);

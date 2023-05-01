@@ -5,9 +5,14 @@ import com.example.server.model.Amenities;
 import com.example.server.model.FlatInfo;
 import com.example.server.model.RentFlat;
 import com.example.server.repository.*;
+import com.example.server.utils.PdfBuilder;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +33,10 @@ public class RentFlatService {
 
     @Autowired
     AmenitiesRepository amentitesRepository;
+
+    @Autowired
+    ClientRepository clientRepository;
+
 
     public List<RentFlat> getAllRentFlats(){
         Iterable<RentFlatEntity> rentFlatEntities = rentFlatRepository.findAll();
@@ -88,9 +97,35 @@ public class RentFlatService {
         rentFlatEntity.setFlatInfoEntity(newFlatInfoEntity);
         return RentFlat.toModel(rentFlatRepository.save(rentFlatEntity));
     }
-
     public void delete(Long id){
         rentFlatRepository.deleteById(id);
+    }
+
+    public byte[] getPdf(Long id) throws DocumentException, IOException {
+        RentFlatEntity rentFlatEntity = rentFlatRepository.findOneById(id);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PdfBuilder pdfBuilder = new PdfBuilder();
+        Document document =pdfBuilder.createPDFfromRentFlat(rentFlatEntity, baos);
+        byte[] pdfBytes = baos.toByteArray();
+        return pdfBytes;
+    }
+
+    public ClientEntity addToFavorite(RentFlatEntity rentFlat, String token){
+        RentFlatEntity saveRentFlat = rentFlatRepository.findOneById(rentFlat.getId());
+        ClientEntity client = clientRepository.findOneByToken(token);
+        List<RentFlatEntity> favoriteRentFlat = client.getFavoriteRentFlat();
+        favoriteRentFlat.add(saveRentFlat);
+        client.setFavoriteRentFlat(favoriteRentFlat);
+        return clientRepository.save(client);
+    }
+
+    public ClientEntity removeFromFavorite(RentFlatEntity rentFlatEntity, String token){
+        RentFlatEntity saveRentFlat = rentFlatRepository.findOneById(rentFlatEntity.getId());
+        ClientEntity client = clientRepository.findOneByToken(token);
+        List<RentFlatEntity> favoriteRentFlat = client.getFavoriteRentFlat();
+        favoriteRentFlat.remove(saveRentFlat);
+        client.setFavoriteRentFlat(favoriteRentFlat);
+        return clientRepository.save(client);
     }
 
 }

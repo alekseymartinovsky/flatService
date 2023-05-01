@@ -67,4 +67,61 @@ public class Amenities {
         amenities.setFireSafety(amenitiesEntity.getFireSafety());
         return amenities;
     }
+
+    public static String getAmenitiesString(AmenitiesEntity amenities) {
+        StringBuilder amenitiesString = new StringBuilder();
+        if (amenities.getHotWater()) {
+            amenitiesString.append("горячая вода, ");
+        }
+        if (amenities.getEssentials()) {
+            amenitiesString.append("основные принадлежности, ");
+        }
+        if (amenities.getBedLinen()) {
+            amenitiesString.append("постельное белье, ");
+        }
+        if (amenities.getMosquitoNet()) {
+            amenitiesString.append("москитная сетка, ");
+        }
+        if (amenities.getCrib()) {
+            amenitiesString.append("детская кроватка, ");
+        }
+        if (amenities.getHeating()) {
+            amenitiesString.append("отопление, ");
+        }
+        if (amenities.getWifi()) {
+            amenitiesString.append("Wi-Fi, ");
+        }
+        if (amenities.getRefrigerator()) {
+            amenitiesString.append("холодильник, ");
+        }
+        if (amenities.getElectricKettle()) {
+            amenitiesString.append("электрический чайник, ");
+        }
+        if (amenities.getTv()) {
+            amenitiesString.append("телевизор, ");
+        }
+        if (amenities.getCooking()) {
+            amenitiesString.append("возможность готовить, ");
+        }
+        if (amenities.getCoffeeMaker()) {
+            amenitiesString.append("кофеварка, ");
+        }
+        if (amenities.getParking()) {
+            amenitiesString.append("парковка, ");
+        }
+        if (amenities.getWashingMachine()) {
+            amenitiesString.append("стиральная машина, ");
+        }
+        if (amenities.getAirConditioning()) {
+            amenitiesString.append("кондиционер, ");
+        }
+        if (amenities.getFireSafety()) {
+            amenitiesString.append("средства пожарной безопасности, ");
+        }
+
+        if (amenitiesString.length() > 0) {
+            amenitiesString.setLength(amenitiesString.length() - 2);
+        }
+        return amenitiesString.toString();
+    }
 }

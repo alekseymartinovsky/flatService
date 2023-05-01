@@ -26,5 +26,6 @@ public class FlatInfoEntity {
     private String repair;
     private Integer rooms;
     private Integer floor;
+    @Column(length = 10000)
     private String description;
 }

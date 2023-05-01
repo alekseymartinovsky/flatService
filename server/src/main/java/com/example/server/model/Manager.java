@@ -12,10 +12,10 @@ public class Manager extends User{
 
     static public Manager toModel(ManagerEntity managerEntity){
         Manager manager = new Manager();
-        manager.setId(manager.getId());
-        manager.setLogin(manager.getLogin());
-        manager.setPhone(manager.getPhone());
-        manager.setEmail(manager.getEmail());
+        manager.setId(managerEntity.getId());
+        manager.setLogin(managerEntity.getLogin());
+        manager.setPhone(managerEntity.getPhone());
+        manager.setEmail(managerEntity.getEmail());
         return manager;
     }
 

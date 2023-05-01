@@ -1,9 +1,4 @@
-import { useEffect } from "react";
-import { CityType } from "../model/City";
-import { RepairType } from "../model/RepairType";
 import style from "./FlatInfoBlock.module.css";
-import { Flat } from "../model/Flat";
-
 interface flatParam {
     label: string;
     value: string | number;
@@ -11,8 +6,6 @@ interface flatParam {
 }
 
 const FlatInfoBlock: React.FC<{ flat: any }> = ({ flat }) => {
-    console.log(flat);
-
     const getBooleanString = (data: boolean) => {
         if (data) {
             return "Да";
@@ -42,7 +35,7 @@ const FlatInfoBlock: React.FC<{ flat: any }> = ({ flat }) => {
 
     const flatParams: flatParam[] = [
         {
-            label: "Населенный пункт",
+            label: "Адресс",
             value: getAddress(),
             render: true,
         },

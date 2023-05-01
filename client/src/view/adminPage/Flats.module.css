@@ -1,0 +1,12 @@
+
+.container{
+    padding-top: 50px;
+    margin: 0 200px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.item{
+    flex-basis: 33%;
+}

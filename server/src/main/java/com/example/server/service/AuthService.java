@@ -1,10 +1,18 @@
 package com.example.server.service;
 
+import com.example.server.entity.UserEntity;
 import com.example.server.repository.AdminRepository;
 import com.example.server.repository.ClientRepository;
 import com.example.server.repository.ManagerRepository;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.crypto.SecretKey;
+import java.time.Instant;
+import java.util.Date;
 
 @Service
 public class AuthService {
@@ -17,7 +25,6 @@ public class AuthService {
 
     @Autowired
     ManagerRepository managerRepository;
-
     public boolean clientAuth(String token) throws Exception {
         //TODO: реализовать проверку токена по login
         if(clientRepository.findOneByToken(token) != null){
@@ -34,12 +41,9 @@ public class AuthService {
     }
 
     public boolean managerAuth(String token) throws Exception {
-        return true; // TODO реализовать проверку
-//        if(managerRepository.findOneByToken(token) != null){
-//            return true;
-//        }
-//        throw new Exception("Необходимо авторизоваться");
+        if(managerRepository.findOneByToken(token) != null){
+            return true;
+        }
+        throw new Exception("Необходимо авторизоваться");
     }
-
-
 }

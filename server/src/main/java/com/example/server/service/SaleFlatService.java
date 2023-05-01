@@ -3,14 +3,16 @@ package com.example.server.service;
 import com.example.server.entity.*;
 import com.example.server.model.FlatInfo;
 import com.example.server.model.SaleFlat;
-import com.example.server.repository.FlatImageRepository;
-import com.example.server.repository.FlatInfoRepository;
-import com.example.server.repository.ManagerRepository;
-import com.example.server.repository.SaleFlatRepository;
+import com.example.server.repository.*;
+import com.example.server.utils.PdfBuilder;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestHeader;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +31,9 @@ public class SaleFlatService {
     @Autowired
     FlatInfoRepository flatInfoRepository;
 
+    @Autowired
+    ClientRepository clientRepository;
+
     public List<SaleFlat> getAllSaleFlats(){
         Iterable<SaleFlatEntity> saleFlatEntities = saleFlatRepository.findAll();
         List<SaleFlat> saleFlats = new ArrayList<SaleFlat>();
@@ -40,7 +45,7 @@ public class SaleFlatService {
 
     public SaleFlat addSaleFlat(SaleFlat saleFlat, String token){
         ManagerEntity managerEntity = managerRepository.findOneByToken(token);
-        List<FlatImageEntity> flatImageEntities = flatImageRepository.findAllByManagerId(managerEntity.getId());
+        List<FlatImageEntity> flatImageEntities = flatImageRepository.findAllByManagerIdAndIsNewUpload(managerEntity.getId(), true);
         for(FlatImageEntity image: flatImageEntities){
             image.setIsNewUpload(false);
             flatImageRepository.save(image);
@@ -92,5 +97,32 @@ public class SaleFlatService {
             saleFlats.add(SaleFlat.toModel(saleFlatEntity));
         }
         return saleFlats;
+    }
+
+    public ClientEntity addToFavorite(SaleFlatEntity saleFlatEntity, String token){
+        SaleFlatEntity saveSaleFlat = saleFlatRepository.findFirstById(saleFlatEntity.getId());
+        ClientEntity client = clientRepository.findOneByToken(token);
+        List<SaleFlatEntity> favoriteSaleFlat = client.getFavoriteSaleFlat();
+        favoriteSaleFlat.add(saveSaleFlat);
+        client.setFavoriteSaleFlat(favoriteSaleFlat);
+        return clientRepository.save(client);
+    }
+
+    public ClientEntity removeFromFavorite(SaleFlatEntity saleFlatEntity, String token){
+        SaleFlatEntity saveSaleFlat = saleFlatRepository.findFirstById(saleFlatEntity.getId());
+        ClientEntity client = clientRepository.findOneByToken(token);
+        List<SaleFlatEntity> favoriteSaleFlat = client.getFavoriteSaleFlat();
+        favoriteSaleFlat.remove(saveSaleFlat);
+        client.setFavoriteSaleFlat(favoriteSaleFlat);
+        return clientRepository.save(client);
+    }
+
+    public byte[] getPdf(Long id) throws DocumentException, IOException {
+        SaleFlatEntity saleFlat = saleFlatRepository.findFirstById(id);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PdfBuilder pdfBuilder = new PdfBuilder();
+        Document document =pdfBuilder.createPDFfromRentFlat(saleFlat, baos);
+        byte[] pdfBytes = baos.toByteArray();
+        return pdfBytes;
     }
 }

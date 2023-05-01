@@ -1,8 +1,10 @@
 package com.example.server.service;
 
+import ch.qos.logback.core.net.server.Client;
 import com.example.server.entity.ClientEntity;
 import com.example.server.model.Role;
 import com.example.server.repository.ClientRepository;
+import com.example.server.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +31,7 @@ public class ClientService {
         if(findClient != null){
             throw new Exception("Клиент с таким логином уже существует");
         }
-        clientEntity.setToken("token");
+        clientEntity.setToken(TokenUtils.generateToken(clientEntity));
         clientEntity.setRole(Role.CLIENT);
         clientRepository.save(clientEntity);
         return "token";
@@ -39,11 +41,18 @@ public class ClientService {
         ClientEntity findClient = clientRepository.findOneByLogin(clientEntity.getLogin());
         if(findClient != null){
             if(findClient.getPassword().equals(clientEntity.getPassword())){
-                return "token";
+                clientEntity.setToken(TokenUtils.generateToken(clientEntity));
+                clientRepository.save(clientEntity);
+                return clientEntity.getToken();
             }
         }
         throw new Exception("Неверный логин или пароль");
     }
 
-
+    public ClientEntity getFavorite(String token){
+        ClientEntity clientEntity = clientRepository.findOneByToken(token);
+        clientEntity.setPassword(null);
+        clientEntity.setLogin(null);
+        return clientEntity;
+    }
 }

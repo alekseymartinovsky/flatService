@@ -6,4 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface ManagerRepository extends CrudRepository<ManagerEntity, Long> {
 
     ManagerEntity findOneByToken(String token);
+
+    ManagerEntity findFirstByLogin(String login);
 }

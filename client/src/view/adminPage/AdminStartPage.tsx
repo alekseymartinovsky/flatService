@@ -21,10 +21,6 @@ const items: MenuProps["items"] = [
         label: "Продажа квартир",
         key: ADMIN_MENU.SALE,
     },
-    {
-        label: "Сообщения",
-        key: ADMIN_MENU.MESSAGES,
-    },
 ];
 
 const AdminStartPage: React.FC = () => {
@@ -46,7 +42,7 @@ const AdminStartPage: React.FC = () => {
 
     return (
         <div className={style.adminStartPage}>
-            <Menu mode="horizontal" items={items} selectedKeys={[current]} onClick={onClick} />
+            <Menu className={style.menu} mode="horizontal" items={items} selectedKeys={[current]} onClick={onClick} />
             {current === ADMIN_MENU.RENT || current === ADMIN_MENU.SALE ? (
                 <Button type="primary" onClick={() => navigate(ROUTE_PATH.ADD_FLAT, { state: getLinkToAddFlat() })}>
                     Добавить объявление

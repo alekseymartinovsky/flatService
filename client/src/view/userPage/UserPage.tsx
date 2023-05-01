@@ -1,18 +1,28 @@
 import { useState } from "react";
 import { Menu, MenuProps } from "antd";
+import RentFlats from "../adminPage/RentFlats";
+import SaleFlats from "../adminPage/SaleFlats";
+import FavoriteFlats from "./FavoriteFlats";
+import style from "../adminPage/AdminStartPage.module.css";
+
+enum USER_MENU {
+    RENT = "rent",
+    SALE = "sale",
+    FAVORITE = "favorite",
+}
 
 const items: MenuProps["items"] = [
     {
         label: "Аренда",
-        key: "rent",
+        key: USER_MENU.RENT,
     },
     {
         label: "Покупка",
-        key: "buy",
+        key: USER_MENU.SALE,
     },
     {
         label: "Избранное",
-        key: "favorite",
+        key: USER_MENU.FAVORITE,
     },
 ];
 
@@ -25,7 +35,10 @@ const UserPage: React.FC = () => {
 
     return (
         <div>
-            <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />;
+            <Menu className={style.menu} onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
+            {current === USER_MENU.RENT ? <RentFlats /> : null}
+            {current === USER_MENU.SALE ? <SaleFlats /> : null}
+            {current === USER_MENU.FAVORITE ? <FavoriteFlats /> : null}
         </div>
     );
 };

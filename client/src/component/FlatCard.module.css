@@ -1,11 +1,9 @@
 
 .flatCard{
-    width: 300px;
-    border: 1px solid black;
+    border-color: 1px gray;
     border-radius: 3px;
     margin: 20px;
     padding-bottom: 10px;
-    overflow: hidden;
     transition: transform .1s;
     cursor: pointer;
 }
@@ -14,34 +12,3 @@
     transform: scale(1.01);
 }
 
-.flatCard div{
-    color: black;
-}
-
-.flatCard a {    
-    text-decoration: none;
-}
-
-.flatCardImg{
-    width: 100%;
-}
-
-.flatCardContent{
-    padding-top: 5px;
-    padding-left: 10px;
-}
-
-.imgBlock{
-    height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden
-}
-
-.imgBlock img{
-    flex-shrink: 0;
-    min-width: 100%;
-    min-height: 100%;
-    background: rgb(158, 158, 158);
-}

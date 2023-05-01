@@ -54,12 +54,13 @@ class FetchRequests {
         }).then((res) => res.data);
     }
 
-    async delete(path: string) {
+    async delete(path: string, params: any) {
         const url = URL_API + path;
 
         return await axios({
             method: "DELETE",
             url: url,
+            params: params,
             headers: {
                 token: getToken(),
                 "Content-Type": "application/json",
@@ -85,6 +86,19 @@ class FetchRequests {
         } catch (error) {
             console.error(error);
             onError(error);
+        }
+    }
+
+    async getPdf(url: string, param: object): Promise<Blob> {
+        try {
+            const response = await axios.get(URL_API + url, {
+                responseType: "blob",
+                headers: { token: getToken() },
+                params: param,
+            });
+            return response.data;
+        } catch (error) {
+            throw new Error("Ошибка при получении PDF файла");
         }
     }
 }

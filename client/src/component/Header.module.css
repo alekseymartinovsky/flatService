@@ -78,11 +78,13 @@
 
 .outButton{
     margin-left: 10px;
-    border: 1px solid black;
-    border-radius: 3px;
+    color: white;
+    font-size: 20px;
     vertical-align: middle;
-    height: 50px;
-    width: 100px;
     font-weight: 500;
-    font-size: 16px;
+    cursor: pointer;
+}
+
+.outButton:hover{
+    text-decoration: underline;
 }

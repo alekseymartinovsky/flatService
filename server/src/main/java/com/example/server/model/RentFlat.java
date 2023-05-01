@@ -16,6 +16,7 @@ public class RentFlat {
     private List<String> images;
     private Boolean longTermRental;
     private Amenities amenities;
+    private Manager manager;
 
     public static RentFlat toModel(RentFlatEntity rentFlatEntity){
         RentFlat rentFlat = new RentFlat();
@@ -28,6 +29,7 @@ public class RentFlat {
         }
         rentFlat.setImages(imagesPath);
         rentFlat.setLongTermRental(rentFlatEntity.getLongTermRental());
+        rentFlat.setManager(Manager.toModel(rentFlatEntity.getManagerEntity()));
         return rentFlat;
     }
 

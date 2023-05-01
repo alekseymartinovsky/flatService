@@ -15,6 +15,7 @@ public class SaleFlat {
     private FlatInfo flatInfo;
 
     private List<String> images;
+    private Manager manager;
 
     public static SaleFlat toModel(SaleFlatEntity flatEntity){
         SaleFlat saleFlat = new SaleFlat();
@@ -25,6 +26,7 @@ public class SaleFlat {
             imagesPath.add(image.getName());
         }
         saleFlat.setImages(imagesPath);
+        saleFlat.setManager(Manager.toModel(flatEntity.getManagerEntity()));
         return saleFlat;
     }
 

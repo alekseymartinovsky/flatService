@@ -12,8 +12,6 @@ import java.util.List;
 @Table(name = "rentFlat")
 public class RentFlatEntity extends FlatEntity {
 
-    @ManyToMany
-    private List<FlatImageEntity> flatImageEntities;
 
     private Boolean longTermRental;
 

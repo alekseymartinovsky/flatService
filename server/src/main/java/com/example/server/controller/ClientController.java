@@ -1,6 +1,7 @@
 package com.example.server.controller;
 
 import com.example.server.entity.ClientEntity;
+import com.example.server.model.Client;
 import com.example.server.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,5 +31,10 @@ public class ClientController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @GetMapping("/favorite")
+    public ResponseEntity getFavoriteFlat(@RequestHeader String token){
+        return ResponseEntity.ok().body(Client.toJson(clientService.getFavorite(token)));
     }
 }

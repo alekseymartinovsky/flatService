@@ -22,35 +22,6 @@ const Header: React.FC<{ back?: boolean }> = ({ back = false }) => {
 
     type MenuItem = Required<MenuProps>["items"][number];
 
-    function getItem(
-        label: React.ReactNode,
-        key: React.Key,
-        icon?: React.ReactNode,
-        children?: MenuItem[],
-        type?: "group"
-    ): MenuItem {
-        return {
-            key,
-            icon,
-            children,
-            label,
-            type,
-        } as MenuItem;
-    }
-
-    const items: MenuProps["items"] = [
-        getItem("Меню", "sub2", null, [
-            getItem("Получить оценку", ROUTE_PATH.CALCULATE_FLAT_GRADE),
-            getItem("Посмотреть очтеты", ROUTE_PATH.REPORT),
-            getItem("Добавить информацию о квартире", ROUTE_PATH.ADD_FLAT),
-            getItem("Посмотреть мои объявления", ROUTE_PATH.USER_FLATS),
-        ]),
-    ];
-
-    const onClick: MenuProps["onClick"] = (e) => {
-        navigate(e.key);
-    };
-
     const out = () => {
         localStorage.removeItem("token");
         navigate(ROUTE_PATH.START);
@@ -71,21 +42,8 @@ const Header: React.FC<{ back?: boolean }> = ({ back = false }) => {
             </div>
             {checkLogin() ? (
                 <>
-                    {roleIsAdmin() ? (
-                        <div>
-                            <Link className={style.adminLink} to={ROUTE_PATH.ADMIN_PAGE}>
-                                Настройки администратора
-                            </Link>
-                        </div>
-                    ) : (
-                        <div className={style.menu}>
-                            <Menu style={{ width: 350 }} mode="inline" items={items} onClick={onClick} />
-                        </div>
-                    )}
-                    <div>
-                        <Button onClick={out} className={style.outButton}>
-                            Выйти
-                        </Button>
+                    <div onClick={out} className={style.outButton}>
+                        Выйти
                     </div>
                 </>
             ) : (

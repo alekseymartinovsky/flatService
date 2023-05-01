@@ -6,7 +6,10 @@
     position: absolute;
     display: flex;
     justify-content: center;
+    margin-top: -100px;
 }
+
+
 
 .content{
     background-color: white;
